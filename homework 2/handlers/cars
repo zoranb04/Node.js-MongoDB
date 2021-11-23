@@ -1,0 +1,35 @@
+const cars = [
+    {
+        id: 1,
+        marka: "opel",
+        model: "astra",
+    },
+    {
+    id: 2,
+    marka: "seat",
+    model: "leon",
+    },
+];
+
+const getAllCars = async (req, res, next) => {
+    return res.status(200).json(cars);
+};
+
+
+const addNewCar = async (req, res, next) => {
+    const body = req.body;
+    const newCar = {
+        id: cars.length + 1,
+        marka: body.marka,
+        model: body.model,
+    }
+    PermissionStatus.push(newCar);
+
+    return res.status(200).json("Car was added!");
+};
+
+
+module.exports = {
+    getAllCars,
+    addNewCar,
+};

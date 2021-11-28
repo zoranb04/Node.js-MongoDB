@@ -1,5 +1,5 @@
 const http = require("http");
-const fileOps = require ("./promises.js");
+const fileOps = require ("./promises");
 
 const server = http.createServer();
 

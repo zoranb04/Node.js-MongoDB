@@ -1,0 +1,216 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Planetarium API",
+      "description": "See planets, get planet details",
+      "contact": {
+        "email": "adzajko@hotmail.com"
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      },
+      "version": "1.0.0-oas3"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8080"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Planets",
+        "description": "Collection of requests for all planets."
+      },
+      {
+        "name": "Accounts",
+        "description": "Collection of requests for account manipulation."
+      }
+    ],
+    "paths": {
+      "/planets": {
+        "get": {
+          "tags": ["Planets"],
+          "summary": "Retrieves all the planets.",
+          "description": "Fetch a list of all the planets.\n",
+          "operationId": "getAllPlanets",
+          "responses": {
+            "200": {
+              "description": "List of all planets",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Planet"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        },
+        "post": {
+          "tags": ["Planets"],
+          "summary": "Add a planet.",
+          "description": "Add planet",
+          "operationId": "addPlanet",
+          "requestBody": {
+            "description": "Planet to add.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Planet"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Planet created."
+            },
+            "400": {
+              "description": "invalid input, object invalid"
+            },
+            "409": {
+              "description": "an existing item already exists"
+            }
+          }
+        }
+      },
+      "/planets/{id}": {
+        "get": {
+          "tags": ["Planets"],
+          "summary": "Get a single planet's info.",
+          "operationId": "getPlanetById",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "The ID of the planet.",
+              "required": true,
+              "style": "simple",
+              "explode": false,
+              "schema": {
+                "type": "number"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A Planet's info.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Planet"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Planets"],
+          "summary": "Edit a planet's info",
+          "operationId": "editPlanet",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "The ID of the planet.",
+              "required": true,
+              "style": "simple",
+              "explode": false,
+              "schema": {
+                "type": "number"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Planet's info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Planet"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Planet's info edited."
+            },
+            "400": {
+              "description": "Bad request, missing info."
+            },
+            "500": {
+              "description": "Internal server error."
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Planets"],
+          "summary": "Delete a planet by id.",
+          "description": "Delete a planet by it's id.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "The ID of the planet.",
+              "required": true,
+              "style": "simple",
+              "explode": false,
+              "schema": {
+                "type": "number"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Missing id!"
+            },
+            "500": {
+              "description": "Internal server error, planet cannot be deleted."
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Planet": {
+          "required": ["distanceFromSun", "name", "size"],
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+            },
+            "name": {
+              "type": "string",
+              "example": "Neptune"
+            },
+            "size": {
+              "type": "number",
+              "description": "The radius size of the planet, in km.",
+              "example": 6801
+            },
+            "distanceFromSun": {
+              "type": "number",
+              "description": "The distance from the Sun to the planet, in km."
+            }
+          }
+        }
+      }
+    }
+  }

@@ -21,8 +21,8 @@ const createPlanet = async (req, res, nest) => {
     const planetBody = req.body;
     const newPlanet = {
         id: id++,
-        name: body.name,
-        distanceFromSun: body.distanceFromSun
+        name: planetBody.name,
+        distanceFromSun: planetBody.distanceFromSun
     }
     planets.push(newPlanet);
     return res.status(200).json("Planet added!");

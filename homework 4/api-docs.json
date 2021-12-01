@@ -1,0 +1,178 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Residents API",
+      "description": "A list of all the residents in your street.",
+      "contact": {
+        "email": "adzajko@hotmail.com"
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      },
+      "version": "1.0.0-oas3"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8080/api/v1"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Residents",
+        "description": "Collection of requests for all residents."
+      }
+    ],
+    "paths": {
+      "/residents": {
+        "get": {
+          "tags": ["Residents"],
+          "summary": "Retrieves all the Residents.",
+          "description": "Fetch a list of all the Residents.\n",
+          "operationId": "getAllResidents",
+          "responses": {
+            "200": {
+              "description": "List of all Residents",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Resident"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        },
+        "post": {
+          "tags": ["Residents"],
+          "summary": "Add a Resident.",
+          "description": "Add Resident",
+          "operationId": "addResident",
+          "requestBody": {
+            "description": "Resident to add.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resident"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Resident created."
+            },
+            "400": {
+              "description": "Invalid input, object invalid."
+            },
+            "409": {
+              "description": "An existing item already exists."
+            }
+          }
+        }
+      },
+      "/residents/{_id}": {
+        "put": {
+          "tags": ["Residents"],
+          "summary": "Edit a Resident's info",
+          "operationId": "editResident",
+          "parameters": [
+            {
+              "name": "_id",
+              "in": "path",
+              "description": "The ID of the Resident.",
+              "required": true,
+              "style": "simple",
+              "explode": false,
+              "schema": {
+                "type": "number"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Resident's info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resident"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Resident's info edited."
+            },
+            "400": {
+              "description": "Bad request, missing info."
+            },
+            "500": {
+              "description": "Internal server error."
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Residents"],
+          "summary": "Delete a Resident by id.",
+          "description": "Delete a Resident by it's id.",
+          "parameters": [
+            {
+              "name": "_id",
+              "in": "path",
+              "description": "The ID of the Resident.",
+              "required": true,
+              "style": "simple",
+              "explode": false,
+              "schema": {
+                "type": "number"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Missing id!"
+            },
+            "500": {
+              "description": "Internal server error, Resident cannot be deleted."
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Resident": {
+          "required": ["name", "hasCar", "isBoomer"],
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string",
+              "example": "Janko Glavcev"
+            },
+            "hasCar": {
+              "type": "boolean",
+              "description": "Does the resident have a car?",
+              "example": false
+            },
+            "isBoomer": {
+              "type": "boolean",
+              "description": "Is the resident a boomer?",
+              "example": true
+            }
+          }
+        }
+      }
+    }
+  }

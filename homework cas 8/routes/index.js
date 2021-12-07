@@ -1,11 +1,14 @@
 const router = require("express").Router();
-const {getAllCarsByMarka, getCarsOlderThan, bulkInsertCars} = require("../handlers/cars");
+const {
+  getAllByFuelConsumption,
+  getAllHybridByMake,
+  whiteCars,
+  bulkInsertCars,
+} = require("../handlers/cars");
 
-
-router.get("/api/v1/cars/:marka", getAllCarsByMarka);
-router.get("/api/v1/cars", getCarsOlderThan);
-router.post("/api/v1/cars/", bulkInsertCars);
-
-
+router.get("/api/v1/cars/:l/100kmh", getAllByFuelConsumption);
+router.get("/api/v1/cars", getAllHybridByMake);
+router.get("/api/v1/cars", whiteCars);
+router.post("/api/v1/cars", bulkInsertCars);
 
 module.exports = router;

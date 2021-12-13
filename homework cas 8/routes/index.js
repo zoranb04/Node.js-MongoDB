@@ -6,7 +6,7 @@ const {
   bulkInsertCars,
 } = require("../handlers/cars");
 
-router.get("/api/v1/cars/:l/100kmh", getAllByFuelConsumption);
+router.get("/api/v1/cars/:fuel", getAllByFuelConsumption);
 router.get("/api/v1/cars", getAllHybridByMake);
 router.get("/api/v1/cars", whiteCars);
 router.post("/api/v1/cars", bulkInsertCars);

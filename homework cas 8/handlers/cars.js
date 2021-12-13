@@ -1,12 +1,12 @@
 const Car = require("../models/Car");
 
 const getAllByFuelConsumption = async (req, res, next) => {
-  const fuel = +req.query.l/100kmh;
+  const fuel = +req.params.fuel;
   if (!fuel) {
     return res.status(400).json("Insert value for fuel consumption");
   }
   try {
-    const economic = await Car.find().where("l/100kmh").gte(3).lte(5);
+    const economic = await Car.find().where("l100kmh").gte(3).lte(5);
     return res.status(200).json(economic);
   } catch (error) {
     return res.status(500).json(error);
@@ -16,7 +16,7 @@ const getAllByFuelConsumption = async (req, res, next) => {
 const getAllHybridByMake = async (req, res, next) => {
   const marka = req.params.make;
   try {
-    const hybrid = await Car.find({ make }).where("powerTrain" = "hybrid").sort(asc);
+    const hybrid = await Car.find({ make: marka }).where({"powerTrain" :"hybrid"}).sort({ fuel: "asc" });
     return res.status(200).json(hybrid);
   } catch (error) {
     return res.status(500).json(error);
@@ -24,10 +24,10 @@ const getAllHybridByMake = async (req, res, next) => {
 };
 
 const whiteCars = async (req, res, next) => {
-  const fuel = +req.query.l/100kmh;
-  if (color="white") {
+  const fuel = +req.query.l100kmh;
+  if (color === "white") {
       try {
-    const economic = await Car.find().where("l/100kmh").lt(6).limit(5);;
+    const economic = await Car.find().where("l100kmh").lt(6).limit(5);;
     return res.status(200).json(economic);
   } catch (error) {
     return res.status(500).json(error);

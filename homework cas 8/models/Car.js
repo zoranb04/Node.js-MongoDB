@@ -1,9 +1,9 @@
 const { model } = require("mongoose");
 const Car = model("cars", {
-  make: { type: , index: true },
+  make: { type: String, index: true },
   series: String,
   powerTrain: String,
-  l/100kmh: Number,
+  l100kmh: Number,
   color: String
 });
 

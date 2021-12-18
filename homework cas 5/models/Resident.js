@@ -13,7 +13,7 @@ const getAllResidents = async () => {
 
 const addNewResident = async (newResidentInfo) => {
   const newResident = {
-    id: residents.length + 1,      // dali mozi samo id: id++  vrednosta na id da se inkrementira?
+    id: residents.length + 1, // dali mozi samo id: id++  vrednosta na id da se inkrementira?
     name: newResidentInfo.name,
     hasCar: newResidentInfo.hasCar,
     isBoomer: newResidentInfo.isBoomer,
@@ -36,7 +36,7 @@ const editResident = async (_id, newInfo) => {
   });
 };
 
-const deleteResident = async (_id) => {
+const deleteResident = async (id) => {
   residents = residents.filter((resident) => resident.id !== id);
 };
 
